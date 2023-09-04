@@ -13,7 +13,7 @@
 import torch
 import torch.nn as nn
 import torchvision
-import torch.transforms as transforms
+import torchvision.transforms as transforms
 import numpy as np
 import pandas as pd
 # import sklearn
