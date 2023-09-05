@@ -23,7 +23,7 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 batch_size = 32
 learning_rate = 0.001
 n_epochs = 10
-# todo: is there the nn.Sequential more preferable and why
+# todo: is the nn.Sequential more preferable and why
 # todo: why do we normalize this way
 transform = transforms.Compose(
     [transforms.ToTensor(), transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))]
@@ -115,7 +115,7 @@ for epoch in range(n_epochs):
 
         outputs = model.forward(images)
 
-        # todo: ask v
+        # todo: how is the loss calculated if outputs has 100x10 dimension and labels has 100 dimension
         loss = criterion(outputs, labels)
 
         optimizer.zero_grad()
