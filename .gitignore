@@ -1,0 +1,6 @@
+/venv/
+/.idea/
+/data/
+/cache/
+/__pycache__/
+/CIFAR10/
