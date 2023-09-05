@@ -59,9 +59,8 @@ class NeuralNet(nn.Module):
 
 model = NeuralNet(input_size, hidden_size, num_classes)
 
-criterion = (
-    nn.CrossEntropyLoss()
-)  # already includes softmax, that's why we didn't include it in the NN
+# criterion already includes softmax, that's why we didn't include it in the NN
+criterion = nn.CrossEntropyLoss()
 optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate)
 
 n_steps = len(train_loader)
