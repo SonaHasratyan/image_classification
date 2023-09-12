@@ -17,16 +17,17 @@ import torchvision
 import torchvision.transforms as transforms
 import matplotlib.pyplot as plt
 import torch.nn.functional as F
+from torch.optim import lr_scheduler
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-batch_size = 32
-learning_rate = 0.001
+batch_size = 100
+learning_rate = 0.01
 n_epochs = 3
 # todo: is the nn.Sequential more preferable and why
 # todo: why do we normalize this way
 transform = transforms.Compose(
-    [transforms.ToTensor(), transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))]
+    [transforms.ToTensor(), transforms.Normalize((0, 0, 0), (256, 256, 256))]
 )
 
 train_dataset = torchvision.datasets.CIFAR10(
@@ -48,6 +49,7 @@ images, labels = next(train_loader_example)
 # 3 - num of channels (3 colors)
 # 32 x 32 - width & height of the img
 print(images.shape, labels.shape)
+
 
 for i in range(6):
     plt.subplot(2, 3, i + 1)
@@ -105,6 +107,7 @@ model = ConvNN()
 
 criterion = nn.CrossEntropyLoss()
 optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate)
+lr_change = lr_scheduler.StepLR(optimizer, 1, 0.5)
 
 
 n_steps = len(train_loader)  # equal to batch_size
@@ -121,6 +124,7 @@ for epoch in range(n_epochs):
         optimizer.zero_grad()
         loss .backward()
         optimizer.step()
+        lr_change.step()
 
         if i % 100 == 0:
             print(f"epoch {epoch + 1}/{n_epochs}, step {i}/{n_steps}, loss: {loss.item():4f}")
